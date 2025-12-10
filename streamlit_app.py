@@ -110,7 +110,7 @@ if st.session_state.table_name:
             Rules:
             1. Return a JSON object with `sql_query` and `explanation`.
             2. Use DuckDB syntax.
-            3. If the user asks for something that requires casting (e.g. string to number), use `TRY_CAST`.
+            3. If the user asks for something that requires casting (e.g. string to number), use `TRY_CAST`. Prefer casting to `DOUBLE` rather than `INTEGER` for numeric comparisons to handle decimal values correctly.
             4. Do NOT include markdown formatting (```sql) in the `sql_query` field.
             """
             
