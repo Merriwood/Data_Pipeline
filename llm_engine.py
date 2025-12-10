@@ -8,9 +8,15 @@ from groq import Groq
 
 # --- Configuration ---
 def get_llm_provider():
+    if "general" not in st.secrets or "llm_provider" not in st.secrets["general"]:
+        st.error("LLM provider not configured. Please check .streamlit/secrets.toml")
+        st.stop()
     return st.secrets["general"]["llm_provider"]
 
 def get_api_key(provider):
+    if provider not in st.secrets or "api_key" not in st.secrets[provider]:
+        st.error(f"API key for {provider} not configured. Please check .streamlit/secrets.toml")
+        st.stop()
     return st.secrets[provider]["api_key"]
 
 # --- Client Initialization ---
@@ -52,7 +58,7 @@ def query_llm(system_prompt: str, user_prompt: str, response_model: type[BaseMod
         elif provider == "groq":
             # Groq requires JSON mode enforcement via prompt + json_object type
             completion = client.chat.completions.create(
-                model="llama3-70b-8192",
+                model="llama-3.3-70b-versatile",
                 messages=messages,
                 response_format={"type": "json_object"}
             )
