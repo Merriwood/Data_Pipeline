@@ -1,0 +1,7 @@
+streamlit
+duckdb
+pandas
+openai
+groq
+pydantic
+python-dotenv
