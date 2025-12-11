@@ -140,8 +140,14 @@ if st.session_state.table_name:
                     # Simple Visualization Logic
                     if len(result_df) > 0:
                         numeric_cols = result_df.select_dtypes(include=['number']).columns
+                        
                         if len(numeric_cols) > 0 and len(result_df) < 50:
-                            st.bar_chart(result_df.set_index(result_df.columns[0])[numeric_cols[0]])
+                            # If the first column is the same as the numeric column (e.g. single column result),
+                            # don't set it as index, just plot it.
+                            if result_df.columns[0] == numeric_cols[0]:
+                                st.bar_chart(result_df[numeric_cols[0]])
+                            else:
+                                st.bar_chart(result_df.set_index(result_df.columns[0])[numeric_cols[0]])
                             
                 except Exception as e:
                     st.error(f"SQL Execution Error: {e}")
