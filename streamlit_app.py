@@ -110,7 +110,7 @@ if st.session_state.table_name:
             Rules:
             1. Return a JSON object with `sql_query` and `explanation`.
             2. Use DuckDB syntax.
-            3. When casting strings to numbers, handle potential formatting issues: use `TRY_CAST(TRIM(REPLACE(column_name, ',', '.')) AS DOUBLE)`.
+            3. Check the column type in the schema. If the column is a string (VARCHAR) and needs to be treated as a number, use `TRY_CAST(TRIM(REPLACE(column_name, ',', '.')) AS DOUBLE)`. If the column is already numeric (INTEGER, BIGINT, DOUBLE, etc.), use it directly without casting or string manipulation.
             4. Do NOT include markdown formatting (```sql) in the `sql_query` field.
             5. CRITICAL: Always alias aggregation functions (e.g. `SELECT COUNT(*) AS review_count ...`). Do NOT return columns with names like `count_star()`.
             """
