@@ -110,8 +110,9 @@ if st.session_state.table_name:
             Rules:
             1. Return a JSON object with `sql_query` and `explanation`.
             2. Use DuckDB syntax.
-            3. If the user asks for something that requires casting (e.g. string to number), use `TRY_CAST`. Prefer casting to `DOUBLE` rather than `INTEGER` for numeric comparisons to handle decimal values correctly.
+            3. When casting strings to numbers, handle potential formatting issues: use `TRY_CAST(TRIM(REPLACE(column_name, ',', '.')) AS DOUBLE)`.
             4. Do NOT include markdown formatting (```sql) in the `sql_query` field.
+            5. CRITICAL: Always alias aggregation functions (e.g. `SELECT COUNT(*) AS review_count ...`). Do NOT return columns with names like `count_star()`.
             """
             
             # Call LLM
@@ -134,20 +135,29 @@ if st.session_state.table_name:
                     
                     result_df = con.execute(response.sql_query).fetchdf()
                     
+                    # Sanitize column names to avoid issues with Streamlit/Arrow
+                    result_df.columns = [str(col).replace('(', '_').replace(')', '').replace('*', 'all') for col in result_df.columns]
+
                     st.subheader("Result")
                     st.dataframe(result_df, use_container_width=True)
                     
                     # Simple Visualization Logic
                     if len(result_df) > 0:
-                        numeric_cols = result_df.select_dtypes(include=['number']).columns
-                        
-                        if len(numeric_cols) > 0 and len(result_df) < 50:
-                            # If the first column is the same as the numeric column (e.g. single column result),
-                            # don't set it as index, just plot it.
-                            if result_df.columns[0] == numeric_cols[0]:
-                                st.bar_chart(result_df[numeric_cols[0]])
-                            else:
-                                st.bar_chart(result_df.set_index(result_df.columns[0])[numeric_cols[0]])
+                        # If result is a single value (1 row, 1 column), display as metric
+                        if result_df.shape == (1, 1):
+                            col_name = result_df.columns[0]
+                            value = result_df.iloc[0, 0]
+                            st.metric(label=col_name, value=str(value))
+                        else:
+                            numeric_cols = result_df.select_dtypes(include=['number']).columns
+                            
+                            if len(numeric_cols) > 0 and len(result_df) < 50:
+                                # If the first column is the same as the numeric column (e.g. single column result),
+                                # don't set it as index, just plot it.
+                                if result_df.columns[0] == numeric_cols[0]:
+                                    st.bar_chart(result_df[numeric_cols[0]])
+                                else:
+                                    st.bar_chart(result_df.set_index(result_df.columns[0])[numeric_cols[0]])
                             
                 except Exception as e:
                     st.error(f"SQL Execution Error: {e}")
