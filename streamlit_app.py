@@ -1,10 +1,9 @@
 import streamlit as st
 import pandas as pd
-from pandasai import PandasAI
 from pandasai import SmartDataframe
 from pandasai.llm import GooglePalm
 
-llm = GooglePalm(api_key="AIzaSyAnw_3MPaMeoR6zK3Om9ObtaTXLTfuZ86k")
+llm = GooglePalm(api_key="AIzaSyCd7YZ_V1xL3ZyrlXeOCnX-bsT5x3ndtsM")
 import matplotlib.pyplot as plt
 from PIL import Image
 st.set_page_config(
