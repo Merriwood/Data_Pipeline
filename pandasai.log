@@ -1427,3 +1427,553 @@ def analyze_data(dfs: list[pd.DataFrame]) ->dict:
         ```
 2023-11-02 16:53:50 [INFO] Answer: {'type': 'plot', 'value': 'temp_chart.png'}
 2023-11-02 16:53:50 [INFO] Executed in: 4.714775562286377s
+2025-12-11 10:50:59 [INFO] Question: Per the scoring and reviews contained in this spreadsheet, please summarize the relationship between a reviewers scores for a business and the frequency of business follow up responses
+2025-12-11 10:50:59 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 10:50:59 [INFO] Prompt ID: 2b9d2760-9e02-4152-bf84-066d11c4ab4f
+2025-12-11 10:50:59 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 10:50:59 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 10:50:59 [INFO] Executing Step 1: CacheLookup
+2025-12-11 10:50:59 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 10:50:59 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 10:50:59 [ERROR] Pipeline failed on step 3: module 'google.generativeai' has no attribute 'generate_text'
+2025-12-11 10:51:45 [INFO] Question: average
+2025-12-11 10:51:45 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 10:51:45 [INFO] Prompt ID: c380f2bb-c23a-4bc0-b0d2-3bc9f84b0ccb
+2025-12-11 10:51:45 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 10:51:45 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 10:51:45 [INFO] Executing Step 1: CacheLookup
+2025-12-11 10:51:45 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 10:51:45 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 10:51:45 [ERROR] Pipeline failed on step 3: module 'google.generativeai' has no attribute 'generate_text'
+2025-12-11 11:21:01 [INFO] Question: summarize
+2025-12-11 11:21:01 [INFO] Running PandasAI with google-gemini LLM...
+2025-12-11 11:21:01 [INFO] Prompt ID: ce2dfce9-e2d2-4216-bca7-44c6a830b5ea
+2025-12-11 11:21:01 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:21:01 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:21:01 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:21:01 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:21:01 [INFO] Using prompt: <dataframe>
+dfs[0]:768x9
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+0,68,86,30,55,36.2,0.502,72,1
+6,96,0,11,130,34.9,0.871,24,0
+3,179,66,43,255,40.1,0.374,21,0
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ summarize
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-12-11 11:21:01 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:21:02 [ERROR] Pipeline failed on step 3: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2025-12-11 11:21:55 [INFO] Question: ListModels t
+2025-12-11 11:21:55 [INFO] Running PandasAI with google-gemini LLM...
+2025-12-11 11:21:55 [INFO] Prompt ID: 3d55b4ed-ee2b-46e8-924b-d76537aba2a9
+2025-12-11 11:21:55 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:21:55 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:21:55 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:21:55 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:21:56 [INFO] Using prompt: <dataframe>
+dfs[0]:768x9
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+9,89,72,31,38,26.4,0.619,51,1
+11,153,44,19,92,20.1,0.435,58,0
+0,76,65,34,265,23.0,1.258,41,1
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ ListModels t
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-12-11 11:21:56 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:21:56 [ERROR] Pipeline failed on step 3: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2025-12-11 11:22:16 [INFO] Question: ListModels
+2025-12-11 11:22:16 [INFO] Running PandasAI with google-gemini LLM...
+2025-12-11 11:22:16 [INFO] Prompt ID: 2290b735-21d2-4583-a66c-1d8ffa7a9e22
+2025-12-11 11:22:16 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:22:17 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:22:17 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:22:17 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:22:17 [INFO] Using prompt: <dataframe>
+dfs[0]:768x9
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+15,151,122,27,291,27.3,0.968,60,1
+12,108,78,39,158,21.8,0.331,38,0
+3,110,114,15,280,21.7,0.466,25,0
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ ListModels
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-12-11 11:22:17 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:22:17 [ERROR] Pipeline failed on step 3: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2025-12-11 11:23:36 [INFO] Question: please list average glucose
+2025-12-11 11:23:36 [INFO] Running PandasAI with google-gemini LLM...
+2025-12-11 11:23:36 [INFO] Prompt ID: d952a106-a754-4d45-8408-d45a0f7c6ef8
+2025-12-11 11:23:36 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:23:36 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:23:36 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:23:36 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:23:36 [INFO] Using prompt: <dataframe>
+dfs[0]:768x9
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+15,88,50,14,230,32.1,0.151,67,1
+6,158,110,33,65,45.2,0.64,52,0
+17,94,90,11,146,40.0,0.578,44,0
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ please list average glucose
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-12-11 11:23:36 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:23:36 [ERROR] Pipeline failed on step 3: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+2025-12-11 11:33:16 [INFO] Question: please list average glucose
+2025-12-11 11:33:16 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 11:33:16 [INFO] Prompt ID: 6b11ecda-45cc-442a-bb92-507647da674f
+2025-12-11 11:33:16 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:33:16 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:33:16 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:33:16 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:33:16 [INFO] Using prompt: <dataframe>
+dfs[0]:768x9
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+2,133,61,23,225,34.6,0.269,70,0
+14,168,78,99,545,44.0,0.532,50,0
+13,99,54,63,175,19.9,0.346,30,1
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ please list average glucose
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-12-11 11:33:16 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:33:17 [ERROR] Pipeline failed on step 3: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 42.851350119s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 42
+}
+]
+2025-12-11 11:43:10 [INFO] Question: please list average glucose
+2025-12-11 11:43:10 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 11:43:10 [INFO] Prompt ID: 930b5f20-b8eb-4d3f-88cf-fcfe83a3b5bf
+2025-12-11 11:43:10 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:43:10 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:43:10 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:43:10 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:43:10 [INFO] Using prompt: <dataframe>
+dfs[0]:768x9
+Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age,Outcome
+14,87,68,54,230,52.9,1.072,37,1
+12,152,110,33,171,36.1,0.364,30,1
+10,96,90,26,310,40.8,0.741,55,0
+</dataframe>
+
+
+
+
+Update this initial code:
+```python
+# TODO: import the required dependencies
+import pandas as pd
+
+# Write code here
+
+# Declare result var: 
+type (possible values "string", "number", "dataframe", "plot"). Examples: { "type": "string", "value": f"The highest salary is {highest_salary}." } or { "type": "number", "value": 125 } or { "type": "dataframe", "value": pd.DataFrame({...}) } or { "type": "plot", "value": "temp_chart.png" }
+
+```
+
+
+
+### QUERY
+ please list average glucose
+
+Variable `dfs: list[pd.DataFrame]` is already declared.
+
+At the end, declare "result" variable as a dictionary of type and value.
+
+If you are asked to plot a chart, use "matplotlib" for charts, save as png.
+
+
+Generate python code and return full updated code:
+2025-12-11 11:43:10 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:43:11 [ERROR] Pipeline failed on step 3: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+Please retry in 48.783436099s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 48
+}
+]
+2025-12-11 11:54:17 [INFO] Question: What is relationship between review scores value given and frequency of response to viewer ?
+2025-12-11 11:54:17 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 11:54:17 [INFO] Prompt ID: fa120d3c-5efc-4a84-8990-29b5ad9f7268
+2025-12-11 11:54:17 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 11:54:18 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 11:54:18 [INFO] Executing Step 1: CacheLookup
+2025-12-11 11:54:18 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 11:54:18 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 11:54:18 [ERROR] Pipeline failed on step 3: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+Please retry in 41.565317581s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 41
+}
+]
+2025-12-11 12:05:18 [INFO] Question: please list average glucose
+2025-12-11 12:05:18 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 12:05:18 [INFO] Prompt ID: 44e1b6c4-ff52-4aae-a5e0-85772d7551aa
+2025-12-11 12:05:18 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 12:05:18 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 12:05:18 [INFO] Executing Step 1: CacheLookup
+2025-12-11 12:05:18 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 12:05:18 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 12:05:18 [ERROR] Pipeline failed on step 3: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+Please retry in 41.106472293s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 41
+}
+]
+2025-12-11 12:05:23 [INFO] Question: What is relationship between review scores value given and frequency of response to viewer ?
+2025-12-11 12:05:23 [INFO] Running PandasAI with google-palm LLM...
+2025-12-11 12:05:23 [INFO] Prompt ID: 0d4b0587-22ee-4f0c-9707-2e1f938c7cbb
+2025-12-11 12:05:23 [INFO] Executing Pipeline: GenerateChatPipeline
+2025-12-11 12:05:24 [INFO] Executing Step 0: ValidatePipelineInput
+2025-12-11 12:05:24 [INFO] Executing Step 1: CacheLookup
+2025-12-11 12:05:24 [INFO] Executing Step 2: PromptGeneration
+2025-12-11 12:05:24 [INFO] Executing Step 3: CodeGenerator
+2025-12-11 12:05:24 [ERROR] Pipeline failed on step 3: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. 
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash
+* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash
+Please retry in 35.566929198s. [links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerDayPerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_requests"
+  quota_id: "GenerateRequestsPerMinutePerProjectPerModel-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-2.0-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+}
+, retry_delay {
+  seconds: 35
+}
+]

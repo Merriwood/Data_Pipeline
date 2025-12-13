@@ -1,16 +1,22 @@
 import streamlit as st
 import pandas as pd
-from pandasai import SmartDataframe
-from pandasai.llm import GooglePalm
-
-llm = GooglePalm(api_key="AIzaSyCd7YZ_V1xL3ZyrlXeOCnX-bsT5x3ndtsM")
 import matplotlib.pyplot as plt
 from PIL import Image
+
+from pandasai import SmartDataframe
+from pandasai.llm import GoogleGemini
+
+llm = GoogleGemini(
+    model="models/gemini-2.5-flash-lite",
+    api_key="AIzaSyCd7YZ_V1xL3ZyrlXeOCnX-bsT5x3ndtsM"
+)
+
 st.set_page_config(
     page_title="PandasAI Insight App",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
+
 styles = """
 <style>
 img {
