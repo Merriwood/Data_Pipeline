@@ -5,11 +5,15 @@ from PIL import Image
 
 from pandasai import SmartDataframe
 from pandasai.llm import GoogleGemini
+import google.generativeai as genai
 
 llm = GoogleGemini(
     model="models/gemini-2.5-flash-lite",
     api_key="AIzaSyCd7YZ_V1xL3ZyrlXeOCnX-bsT5x3ndtsM"
 )
+# Workaround for pandasai bug: Re-initialize the model with the correct name
+genai.configure(api_key="AIzaSyCd7YZ_V1xL3ZyrlXeOCnX-bsT5x3ndtsM")
+llm.google_gemini = genai.GenerativeModel(llm.model)
 
 st.set_page_config(
     page_title="PandasAI Insight App",
@@ -43,14 +47,26 @@ with content:
     sale_file = st.file_uploader('Upload a CSV file', type=['csv'])
     if sale_file is not None:
         df = pd.read_csv(sale_file, encoding='latin-1')
-        sdf = SmartDataframe(df, config={"llm": llm})
+        
+        # Use session state to persist the SmartDataframe and its memory
+        if "sdf" not in st.session_state:
+            st.session_state.sdf = SmartDataframe(
+                df, 
+                config={
+                    "llm": llm,
+                    "verbose": True,
+                    "enable_cache": True,
+                    "custom_whitelisted_dependencies": ["ast", "numpy", "matplotlib", "seaborn"]
+                }
+            )
+        
         st.dataframe(df)
         query = st.text_input(label='Enter your query')
         Analyze = st.button(label='Analyze')
-        if Analyze:
-            result = sdf.chat(query)
-            print(result)
-            st.write(result)
+        if Analyze and query:
+            with st.spinner("Analyzing..."):
+                result = st.session_state.sdf.chat(query)
+                st.write(result)
     else:
         st.warning("Please select a CSV file to continue.")
         st.stop()
