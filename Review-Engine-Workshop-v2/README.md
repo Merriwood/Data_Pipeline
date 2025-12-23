@@ -274,14 +274,273 @@ Review-Engine-Workshop-v2/
 ```
 
 ### Frontend Organization
-All UI/UX files are exclusively within `review-engine-ui/`:\n- Analytics console
-- Component library
+All UI/UX files are exclusively within `review-engine-ui/`:
+- Module-based dashboard and analytics
+- Component library (shared + module-specific)
 - Configuration files
 - Frontend dependencies
 
+**Recommended Frontend Structure:**
+```
+review-engine-ui/
+├── app/
+│   ├── [tenant]/
+│   │   ├── dashboard/          # Qrvey aggregator (unified view)
+│   │   ├── modules/
+│   │   │   ├── reviews/        # Review analytics module
+│   │   │   ├── ecommerce/      # E-commerce module (NEW)
+│   │   │   ├── loyalty/        # Yotpo integration
+│   │   │   ├── marketing/      # Klaviyo integration
+│   │   │   └── analytics/      # Cross-module insights
+│   │   └── [layout files]
+│   └── [other app files]
+├── components/
+│   ├── shared/                 # Reusable across all modules
+│   │   ├── Navigation.tsx
+│   │   ├── TenantHeader.tsx
+│   │   ├── ModuleCard.tsx
+│   │   ├── LoadingState.tsx
+│   │   └── ErrorBoundary.tsx
+│   └── modules/                # Module-specific components
+│       ├── reviews/
+│       ├── ecommerce/
+│       ├── loyalty/
+│       └── marketing/
+├── hooks/                      # Shared custom React hooks
+├── lib/
+│   ├── module-registry.ts     # Module configuration & feature flags
+│   └── [other utilities]
+├── constants/                  # Shared constants and enums
+└── [other frontend files]
+```
+
 ---
 
-## 🏗 Architecture
+## 🔄 Module Architecture & Integration
+
+### Module Registry System
+Each module is self-contained with feature flag support for per-tenant enablement:
+
+```typescript
+// lib/module-registry.ts
+export const MODULE_REGISTRY = {
+  reviews: {
+    name: 'Review Analytics',
+    icon: 'Star',
+    path: '/modules/reviews',
+    enabled: true,
+    requiredPermissions: ['view_reviews', 'manage_reviews']
+  },
+  ecommerce: {
+    name: 'E-Commerce',
+    icon: 'ShoppingCart',
+    path: '/modules/ecommerce',
+    enabled: true,  // Per-tenant feature flag
+    requiredPermissions: ['view_ecommerce', 'manage_products']
+  },
+  loyalty: {
+    name: 'Loyalty & Rewards',
+    icon: 'Gift',
+    path: '/modules/loyalty',
+    enabled: true,
+    requiredPermissions: ['view_loyalty', 'manage_rewards']
+  },
+  marketing: {
+    name: 'Marketing Automation',
+    icon: 'Mail',
+    path: '/modules/marketing',
+    enabled: true,
+    requiredPermissions: ['view_campaigns', 'create_campaigns']
+  },
+  analytics: {
+    name: 'Cross-Module Analytics',
+    icon: 'TrendingUp',
+    path: '/modules/analytics',
+    enabled: true,
+    requiredPermissions: ['view_analytics']
+  }
+};
+```
+
+### Qrvey Dashboard Integration
+The Qrvey dashboard acts as a unified aggregation layer, combining insights from all modules:
+
+```
+Qrvey Dashboard
+├── Review Sentiment Trends (reviews module)
+├── Product Performance (ecommerce module)
+├── Customer Lifetime Value (loyalty + ecommerce)
+├── Campaign ROI (marketing module)
+├── Community Insights (analytics module)
+└── Real-time Alerts (cross-module)
+```
+
+### E-Commerce Integration Pattern
+
+**Tight Coupling Scenario (Recommended):**
+- Customer purchase events trigger loyalty point awards
+- Product reviews influence featured products on storefront
+- Purchase history influences review recommendations
+- Ecommerce metrics feed into community intelligence
+
+**Backend Services:**
+```python
+# app/services/ecommerce_service.py
+- Product catalog management
+- Order processing and fulfillment
+- Customer purchase tracking
+- Inventory management
+
+# app/integrations/ecommerce.py
+- Shopify API client
+- WooCommerce API client
+- Custom storefront provider
+
+# app/models/ecommerce.py
+- EcommerceProduct entity
+- CustomerPurchase entity
+- ProductReview cross-reference
+```
+
+**Data Flow:**
+```
+Customer Purchase (Ecommerce)
+        ↓
+Celery Task Hook: on_product_purchased
+        ↓
+├─ Loyalty Module: Award points
+├─ Marketing Module: Send thank-you email
+├─ Reviews Module: Request product review
+└─ Analytics Module: Update customer LTV
+```
+
+---
+
+## 🚀 Implementation Roadmap: Next Phases
+
+### Phase 1: Foundation (Week 1-2) - CRITICAL
+**Objective:** Establish modular architecture foundation for all modules
+
+#### Priority 1a: Shared Components Library
+Create `review-engine-ui/components/shared/` with reusable UI components:
+- Navigation component (module-aware)
+- TenantHeader with logo/branding
+- ModuleCard for dashboard
+- LoadingState and ErrorBoundary
+- Common form components
+
+**Why First:** Prevents code duplication, ensures UI consistency across modules, enables faster module development.
+
+#### Priority 1b: Module Registry System
+Implement `review-engine-ui/lib/module-registry.ts`:
+- Define MODULE_REGISTRY with all module metadata
+- Feature flag system per tenant
+- Permission matrix per module
+- Dynamic module loading
+
+**Why First:** Enables Qrvey dashboard to automatically discover and display available modules.
+
+**Deliverable:** Dashboard automatically shows/hides modules based on tenant feature flags.
+
+---
+
+### Phase 2: Core Modules (Week 3-6)
+**Objective:** Implement ecommerce module and RBAC system
+
+#### Priority 2a: E-Commerce Module
+- `app/services/ecommerce_service.py` - Business logic
+- `app/integrations/ecommerce.py` - Shopify/WooCommerce clients
+- `app/models/ecommerce.py` - Product, Order, Purchase entities
+- `review-engine-ui/components/modules/ecommerce/` - UI components
+- `app/api/v1/endpoints/ecommerce.py` - REST API endpoints
+
+#### Priority 2b: RBAC Middleware & Permissions
+- `app/core/permissions.py` - Permission matrix definition
+- `app/middleware/auth.py` - RBAC middleware enforcement
+- Permission checks on all module endpoints
+- Per-tenant role assignments
+
+**RBAC Matrix Example:**
+```python
+RBAC_MATRIX = {
+    'admin': ['all_permissions'],
+    'manager': ['view_all_modules', 'manage_reviews', 'manage_campaigns'],
+    'viewer': ['view_all_modules'],
+    'reviewer': ['view_reviews', 'respond_to_reviews']
+}
+```
+
+#### Priority 2c: Celery Task Hooks
+- `app/tasks.py` - Background job definitions
+- `on_product_purchased` - Triggers loyalty + marketing + analytics updates
+- `on_review_submitted` - Updates product ratings, notifies team
+- `on_campaign_created` - Logs to analytics module
+
+---
+
+### Phase 3: Optimization & Scaling (Week 7-14)
+**Objective:** Performance, monitoring, and production readiness
+
+#### Priority 3a: Performance Optimization
+- TTL caching strategy per module (5min-1hr based on update frequency)
+- Database connection pooling
+- API response time optimization
+- Frontend lazy-loading of modules
+
+#### Priority 3b: Feature Flags System
+- Integrate with LaunchDarkly or Unleash
+- Per-tenant feature flag support
+- A/B testing infrastructure
+- Rollout safety mechanisms
+
+#### Priority 3c: Module-Specific Logging & Metrics
+- Structured logging per module
+- Module-specific Datadog dashboards
+- Performance metrics and SLAs
+- Usage analytics per module
+
+#### Priority 3d: Database Schema Enhancements
+- Add `ecommerce_enabled`, `ecommerce_provider`, `ecommerce_config` to Tenant model
+- Create EcommerceProduct, CustomerPurchase, ProductReview entities
+- Add indexes for module-specific queries
+- Implement archival strategy for old data
+
+---
+
+## 🏛 Architecture Decisions
+
+### Decision 1: Modular Module Design
+✅ **Chosen:** Module-first architecture (reviews, ecommerce, loyalty, marketing, analytics)
+- **Rationale:** Enables independent scaling, feature flags per tenant, clear API boundaries
+- **Alternative:** Monolithic feature-first (rejected - creates tight coupling)
+
+### Decision 2: E-Commerce Integration Depth
+✅ **Recommended:** Tight Coupling - Customer purchase events trigger loyalty/marketing/reviews workflows
+- **Rationale:** Purchase history influences review likelihood, loyalty rewards drive repeat purchases
+- **Tight Coupling Benefits:**
+  - Customer LTV calculation includes purchase + review + loyalty data
+  - Personalized product recommendations based on behavior
+  - Seamless workflow automation
+- **Loose Coupling Alternative:** Standalone storefront (if ecommerce is separate from platform)
+
+### Decision 3: Dashboard Aggregation
+✅ **Chosen:** Qrvey as unified dashboard hub
+- **Rationale:** Single source of truth, cross-module insights, executive visibility
+- **Alternative:** Separate dashboards per module (rejected - fragmented UX)
+
+### Decision 4: Feature Flags
+✅ **Recommended:** Implement module-level feature flags
+- **Rationale:** Support progressive rollout, A/B testing, per-tenant module enablement
+- **Tools:** LaunchDarkly, Unleash, or Flags as a Service
+
+### Decision 5: RBAC Implementation
+✅ **Recommended:** Permission matrix + middleware enforcement
+- **Rationale:** Secure multi-tenant access, clear permission definitions, audit trail
+- **Pattern:** Attribute-Based Access Control (ABAC) optional for advanced scenarios
+
+---
+
+
 
 ### System Diagram
 
