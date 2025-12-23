@@ -102,7 +102,15 @@ Principles:
 - ✅ Custom domain support
 - ✅ Tenant isolation (Row-Level Security)
 
-### 🔒 Enterprise Security
+### � E-Commerce Platform
+- ✅ Multi-provider integration (Shopify, WooCommerce, custom)
+- ✅ Product catalog management
+- ✅ Order processing and fulfillment tracking
+- ✅ Customer purchase history and analytics
+- ✅ Automatic product review invitations
+- ✅ Customer LTV calculation (purchase + review + loyalty data)
+
+### �🔒 Enterprise Security
 - ✅ SAML SSO authentication
 - ✅ Role-Based Access Control (RBAC)
 - ✅ Row-level security (PostgreSQL RLS)
@@ -168,6 +176,7 @@ tenacity           # Retry logic
 - **Loyalty:** Yotpo Loyalty & Referrals API
 - **Marketing:** Klaviyo Marketing Automation API
 - **Reviews:** Synup, Google My Business, Yelp Fusion, Facebook
+- **E-Commerce:** Shopify, WooCommerce, custom storefronts
 - **Monitoring:** Datadog, Sentry, PagerDuty
 - **Security:** Cloudflare WAF, Auth0
 
