@@ -252,15 +252,10 @@ npx expo start
 Review-Engine-Workshop-v2/
 ├── review-engine-ui/                     # All UI/UX and frontend code
 │   ├── app/                             # Next.js app directory
-│   ├── components/                      # React components (Racing metaphor UI)
+│   ├── components/                      # React components
 │   ├── package.json                     # Frontend dependencies
 │   ├── tsconfig.json                    # TypeScript config
 │   ├── tailwind.config.js               # Tailwind CSS config
-│   ├── RACING_METAPHOR_INTEGRATION.md   # Design philosophy
-│   ├── RACING_METAPHOR_DEVELOPER_NOTES.md
-│   ├── RACING_CONSOLE_USER_GUIDE.md
-│   ├── RACING_DOCUMENTATION_INDEX.md
-│   ├── READY_TO_SHIP.md
 │   └── [other frontend files]
 │
 ├── app/                                  # FastAPI application (backend)
@@ -279,9 +274,7 @@ Review-Engine-Workshop-v2/
 ```
 
 ### Frontend Organization
-All UI/UX files are exclusively within `review-engine-ui/`:
-- Racing metaphor analytics console
-- Design system documentation
+All UI/UX files are exclusively within `review-engine-ui/`:\n- Analytics console
 - Component library
 - Configuration files
 - Frontend dependencies
@@ -670,15 +663,6 @@ Medium:
 - **[Architecture Guide](./docs/architecture.md)** - System design
 - **[Deployment Guide](./docs/deployment.md)** - Production setup
 - **[Security Guide](./docs/security.md)** - Safety practices
-
-### UI/UX (Mockup) Documentation
-All UI design documentation is located in `review-engine-ui/`:
-- **[RACING_METAPHOR_INTEGRATION.md](./review-engine-ui/RACING_METAPHOR_INTEGRATION.md)** - Design philosophy
-- **[RACING_METAPHOR_DEVELOPER_NOTES.md](./review-engine-ui/RACING_METAPHOR_DEVELOPER_NOTES.md)** - Technical implementation
-- **[RACING_CONSOLE_USER_GUIDE.md](./review-engine-ui/RACING_CONSOLE_USER_GUIDE.md)** - User documentation
-- **[RACING_DOCUMENTATION_INDEX.md](./review-engine-ui/RACING_DOCUMENTATION_INDEX.md)** - Navigation guide
-
-> **Note:** These files represent the UI/UX mockup and design system. They are subject to revision and refactoring before production implementation.
 
 ---
 
