@@ -81,6 +81,7 @@ Principles:
 - ✅ Automatic point allocation
 - ✅ Referral program management
 - ✅ Real-time reward notifications
+- 📋 **Future Integration:** Prediction Market Loyalty Program (see `/docs/20251223-PREDICTION-MARKET-LOYALTY-PROGRAM.pdf`)
 
 ### 📧 Marketing Automation
 - ✅ Klaviyo campaign triggers
