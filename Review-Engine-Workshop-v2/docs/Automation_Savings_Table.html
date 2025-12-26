@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Savings Table</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+  body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        padding: 40px;
+        max-width: 1200px;
+        width: 100%;
+    }
+
+    h1 {
+        color: #2d3748;
+        margin-bottom: 10px;
+        font-size: 28px;
+    }
+
+    .subtitle {
+        color: #718096;
+        margin-bottom: 30px;
+        font-size: 14px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    th {
+        padding: 16px 12px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    th:nth-child(2), th:nth-child(3), th:nth-child(4), th:nth-child(5), th:nth-child(6) {
+        text-align: right;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid #e2e8f0;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        position: relative;
+    }
+
+    tbody tr:hover {
+        background: #f7fafc;
+        transform: translateX(4px);
+    }
+
+    tbody tr.total-row {
+        background: #edf2f7;
+        font-weight: 700;
+        border-top: 2px solid #667eea;
+    }
+
+    tbody tr.total-row:hover {
+        background: #e2e8f0;
+    }
+
+    td {
+        padding: 16px 12px;
+        color: #2d3748;
+        font-size: 14px;
+    }
+
+    td:nth-child(2), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .category {
+        font-weight: 600;
+        color: #4a5568;
+    }
+
+    .hours-saved {
+        color: #48bb78;
+        font-weight: 600;
+    }
+
+    .savings {
+        color: #38a169;
+        font-weight: 600;
+    }
+
+    .percentage {
+        display: inline-block;
+        padding: 4px 10px;
+        background: #bee3f8;
+        color: #2c5282;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 12px;
+    }
+
+    .tooltip {
+        position: absolute;
+        background: #2d3748;
+        color: white;
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        line-height: 1.5;
+        max-width: 350px;
+        z-index: 1000;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .tooltip.show {
+        opacity: 1;
+    }
+
+    .tooltip::before {
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 20px;
+        width: 12px;
+        height: 12px;
+        background: #2d3748;
+        transform: rotate(45deg);
+    }
+
+    .automations {
+        margin-top: 8px;
+        padding-left: 16px;
+    }
+
+    .automations li {
+        font-size: 12px;
+        color: #cbd5e0;
+        margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+
+        table {
+            font-size: 12px;
+        }
+
+        th, td {
+            padding: 10px 8px;
+        }
+
+        h1 {
+            font-size: 22px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <h1>AI Automation Savings Analysis</h1>
+        <p class="subtitle">Hover over rows to see detailed automation breakdown</p>
+
+```
+    <table id="savingsTable">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Baseline Hrs/Mo</th>
+                <th>Post-AI Hrs/Mo</th>
+                <th>Hours Saved/Mo</th>
+                <th>Labor Savings/Mo</th>
+                <th>Automatable %</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+        </tbody>
+    </table>
+</div>
+
+<div id="tooltip" class="tooltip"></div>
+
+<script>
+    const data = [
+        {
+            "category": "Marketing",
+            "baseline_hours_mo": 40,
+            "post_ai_hours_mo": 14,
+            "hours_saved_mo": 26,
+            "labor_savings_mo": 780,
+            "automatable_chunks": [
+                "Orchestration: Auto-triggers/segmentation from customer graph",
+                "Content: AI email/ad copy gen",
+                "Leads: Scoring + drip follow-ups",
+                "Reports: Unified dashboards w/ alerts"
+            ],
+            "tooltip": "Marketing: 65% automatable. Reclaim 26 hrs/mo for RevOps."
+        },
+        {
+            "category": "Social Media",
+            "baseline_hours_mo": 48,
+            "post_ai_hours_mo": 18,
+            "hours_saved_mo": 30,
+            "labor_savings_mo": 900,
+            "automatable_chunks": [
+                "Scheduling: Cross-platform posts",
+                "Engagement: AI comment routing",
+                "Ads: Budget/audience optimization",
+                "Analytics: Auto-insights/trends"
+            ],
+            "tooltip": "Social: 63% automatable. Free 30 hrs/mo for creative/partnerships."
+        },
+        {
+            "category": "Loyalty",
+            "baseline_hours_mo": 30,
+            "post_ai_hours_mo": 11,
+            "hours_saved_mo": 19,
+            "labor_savings_mo": 570,
+            "automatable_chunks": [
+                "Triggers: Churn/reactivation offers",
+                "Fulfillment: Auto-rewards/points",
+                "Personalization: Behavior-based tiers",
+                "Reports: Redemption/churn dashboards"
+            ],
+            "tooltip": "Loyalty: 63% automatable. 19 hrs/mo to relationship mgmt."
+        },
+        {
+            "category": "E-commerce",
+            "baseline_hours_mo": 64,
+            "post_ai_hours_mo": 23,
+            "hours_saved_mo": 41,
+            "labor_savings_mo": 1230,
+            "automatable_chunks": [
+                "Orders: Status updates/cart recovery",
+                "Inventory: Sync/alerts",
+                "Support: AI chat/FAQs",
+                "Content: Product desc/images"
+            ],
+            "tooltip": "E-com: 64% automatable. 41 hrs/mo for CRO/partners."
+        }
+    ];
+
+    const tableBody = document.getElementById('tableBody');
+    const tooltip = document.getElementById('tooltip');
+
+    // Calculate totals
+    const totals = data.reduce((acc, item) => ({
+        baseline_hours_mo: acc.baseline_hours_mo + item.baseline_hours_mo,
+        post_ai_hours_mo: acc.post_ai_hours_mo + item.post_ai_hours_mo,
+        hours_saved_mo: acc.hours_saved_mo + item.hours_saved_mo,
+        labor_savings_mo: acc.labor_savings_mo + item.labor_savings_mo
+    }), { baseline_hours_mo: 0, post_ai_hours_mo: 0, hours_saved_mo: 0, labor_savings_mo: 0 });
+
+    const totalPercentage = Math.round((totals.hours_saved_mo / totals.baseline_hours_mo) * 100);
+
+    // Render table rows
+    data.forEach(item => {
+        const percentage = Math.round((item.hours_saved_mo / item.baseline_hours_mo) * 100);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="category">${item.category}</td>
+            <td>${item.baseline_hours_mo}</td>
+            <td>${item.post_ai_hours_mo}</td>
+            <td class="hours-saved">${item.hours_saved_mo}</td>
+            <td class="savings">$${item.labor_savings_mo.toLocaleString()}</td>
+            <td><span class="percentage">${percentage}%</span></td>
+        `;
+
+        // Tooltip functionality
+        row.addEventListener('mouseenter', (e) => {
+            const automationsList = item.automatable_chunks
+                .map(chunk => `<li>${chunk}</li>`)
+                .join('');
+            
+            tooltip.innerHTML = `
+                <strong>${item.tooltip}</strong>
+                <div class="automations">
+                    <ul>${automationsList}</ul>
+                </div>
+            `;
+            tooltip.classList.add('show');
+        });
+
+        row.addEventListener('mousemove', (e) => {
+            tooltip.style.left = e.pageX + 20 + 'px';
+            tooltip.style.top = e.pageY - 60 + 'px';
+        });
+
+        row.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('show');
+        });
+
+        tableBody.appendChild(row);
+    });
+
+    // Add total row
+    const totalRow = document.createElement('tr');
+    totalRow.className = 'total-row';
+    totalRow.innerHTML = `
+        <td class="category">TOTAL</td>
+        <td>${totals.baseline_hours_mo}</td>
+        <td>${totals.post_ai_hours_mo}</td>
+        <td class="hours-saved">${totals.hours_saved_mo}</td>
+        <td class="savings">$${totals.labor_savings_mo.toLocaleString()}</td>
+        <td><span class="percentage">${totalPercentage}%</span></td>
+    `;
+    tableBody.appendChild(totalRow);
+</script>
+```
+
+</body>
+</html>

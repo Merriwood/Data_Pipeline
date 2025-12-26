@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>12-Month Revenue Impact: Before & After Task Automation + RevOps Growth</title>
+    <title>12-Month Revenue Impact: Automation + RevOps Growth</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         * {
@@ -63,20 +63,16 @@
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
         
-        .metric-card.green {
-            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        }
-        
         .metric-card.orange {
             background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
         }
         
-        .metric-card.purple {
-            background: linear-gradient(135deg, #9f7aea 0%, #6b46c1 100%);
+        .metric-card.green {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
         }
         
-        .metric-card.red {
-            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        .metric-card.purple {
+            background: linear-gradient(135deg, #9f7aea 0%, #6b46c1 100%);
         }
         
         .metric-label {
@@ -149,6 +145,10 @@
             background: #3182ce;
         }
         
+        .legend-color.color-red {
+            background: #f56565;
+        }
+        
         .legend-color.dashed {
             background: repeating-linear-gradient(90deg, #ed8936 0px, #ed8936 5px, transparent 5px, transparent 10px);
         }
@@ -189,7 +189,7 @@
         
         .before-after {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 20px;
             margin-top: 15px;
         }
@@ -202,6 +202,10 @@
         
         .before-after-item.before {
             background: #fff5f5;
+        }
+        
+        .before-after-item.during {
+            background: #fef5e7;
         }
         
         .before-after-item.after {
@@ -315,33 +319,33 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>📈 12-Month Revenue Impact: Before & After Task Automation</h1>
-            <p class="subtitle">Automating 26.25 hours/week (62.5%) unlocks $68.4K annual labor savings, improving net profit margins by 4-5%</p>
+            <h1>📈 12-Month Revenue Impact: Automation + RevOps Growth</h1>
+            <p class="subtitle">Combining $68.4K labor cost savings + $83.8K RevOps revenue growth = $141.2K total profit acceleration (+101%)</p>
         </div>
         
         <div class="metrics-grid">
             <div class="metric-card">
                 <div class="metric-label">Annual Revenue</div>
-                <div class="metric-value">$698K</div>
-                <div class="metric-change">Consistent across both scenarios</div>
+                <div class="metric-value">$781.8K</div>
+                <div class="metric-change">+$83.8K (+12% RevOps growth)</div>
             </div>
             
             <div class="metric-card orange">
-                <div class="metric-label">Before Automation Profit</div>
+                <div class="metric-label">Before Automation</div>
                 <div class="metric-value">$139.6K</div>
                 <div class="metric-change">20% net margin</div>
             </div>
             
             <div class="metric-card green">
-                <div class="metric-label">After Automation Profit</div>
-                <div class="metric-value">$207.9K</div>
-                <div class="metric-change">29.7% net margin (+$68.3K)</div>
+                <div class="metric-label">After Automation+RevOps</div>
+                <div class="metric-value">$280.8K</div>
+                <div class="metric-change">35.9% net margin</div>
             </div>
             
             <div class="metric-card purple">
-                <div class="metric-label">Labor Savings Impact</div>
-                <div class="metric-value">+$68.4K</div>
-                <div class="metric-change">Annual operational savings</div>
+                <div class="metric-label">Total Profit Growth</div>
+                <div class="metric-value">+$141.2K</div>
+                <div class="metric-change">+101% improvement</div>
             </div>
         </div>
 
@@ -353,109 +357,140 @@
                     <div class="before-after-label">❌ Before Automation</div>
                     <div class="before-after-value">$139.6K</div>
                     <div class="before-after-detail">
-                        <strong>Baseline Scenario:</strong><br>
-                        - Annual Revenue: $698K<br>
-                        - Operating Cost: $558.4K (20% margin)<br>
-                        - Net Profit: $139.6K<br>
-                        - Full-time FTE equivalent: 2.02 employees
+                        <strong>Baseline:</strong><br>
+                        Revenue: $698K<br>
+                        Labor: $109.2K<br>
+                        Op Costs: $449.2K<br>
+                        Net: $139.6K<br>
+                        Margin: 20%
                     </div>
                 </div>
-                <div class="before-after-item after">
-                    <div class="before-after-label">✅ After Automation</div>
+                <div class="before-after-item during">
+                    <div class="before-after-label">⚙️ Automation Only</div>
                     <div class="before-after-value">$207.9K</div>
                     <div class="before-after-detail">
-                        <strong>Optimized Scenario:</strong><br>
-                        - Annual Revenue: $698K (unchanged)<br>
-                        - Operating Cost: $490.1K (29.7% margin)<br>
-                        - Net Profit: $207.9K<br>
-                        - FTE equivalent: 0.75 employees + automation
+                        <strong>Labor Savings:</strong><br>
+                        Revenue: $698K<br>
+                        Labor: $40.95K<br>
+                        Op Costs: $449.2K<br>
+                        Net: $207.9K<br>
+                        Margin: 29.7%
                     </div>
-                    <div class="improvement-badge">+$68.3K (+49% profit)</div>
+                    <div class="improvement-badge">+$68.3K</div>
+                </div>
+                <div class="before-after-item after">
+                    <div class="before-after-label">✅ Automation + RevOps</div>
+                    <div class="before-after-value">$280.8K</div>
+                    <div class="before-after-detail">
+                        <strong>Full Impact:</strong><br>
+                        Revenue: $781.8K<br>
+                        Labor: $40.95K<br>
+                        Op Costs: $460.1K<br>
+                        Net: $280.8K<br>
+                        Margin: 35.9%
+                    </div>
+                    <div class="improvement-badge">+$141.2K (+101%)</div>
                 </div>
             </div>
         </div>
 
         <div class="axis-labels">
             <div class="axis-label">
-                <strong>📈 Left Y-Axis:</strong> Revenue & Net Profit ($0 - $750K)
+                <strong>📈 Left Y-Axis:</strong> Revenue & Net Profit ($0 - $850K)
             </div>
             <div class="axis-label">
-                <strong>💰 Right Y-Axis:</strong> Monthly Labor Costs ($0 - $4K)
+                <strong>💰 Right Y-Axis:</strong> Labor Costs & Monthly Savings ($0 - $12K)
             </div>
         </div>
 
         <div class="chart-legend">
             <div class="legend-item">
                 <div class="legend-color color-black"></div>
-                <span>Revenue (Both Scenarios)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color color-orange"></div>
-                <span>Net Profit Before Automation (Left Axis)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color color-green"></div>
-                <span>Net Profit After Automation (Left Axis)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color dashed"></div>
-                <span>Before Labor Cost ($1.7K/mo)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color color-blue"></div>
-                <span>After Labor Cost ($0.8K/mo)</span>
+                <span>Revenue Baseline</span>
             </div>
             <div class="legend-item">
                 <div class="legend-color color-purple"></div>
-                <span>Cumulative Labor Savings</span>
+                <span>Revenue with 12% RevOps Growth</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color color-orange"></div>
+                <span>Net Profit Before (Left Axis)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color color-blue"></div>
+                <span>Net Profit Automation Only (Left Axis)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color color-green"></div>
+                <span>Net Profit Automation + RevOps (Left Axis)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color dashed"></div>
+                <span>Labor Cost Before vs After (Right Axis)</span>
             </div>
         </div>
 
         <div class="chart-container">
-            <canvas id="automationImpactChart"></canvas>
+            <canvas id="impactChart"></canvas>
         </div>
 
         <div class="annotations">
-            <h3>🎯 Key Insights & Automation Impact Analysis</h3>
+            <h3>🎯 Financial Impact Breakdown</h3>
             
-            <div class="annotation-item"><strong>Task Automation Foundation:</strong> Based on Review Engine task automation dashboard: 42 hours/week operations, 26.25 hours automatable (62.5%), 15.75 hours manual (37.5%)</div>
+            <div class="annotation-item"><strong>Automation Component:</strong> 26.25 hours/week freed, $68.4K annual labor savings, reduces labor cost from $109.2K to $40.95K</div>
             
-            <div class="annotation-item"><strong>Category Breakdown:</strong> Digital Marketing (68% automation), Social Media (58%), Loyalty Rewards (59%), Ecommerce (65%)</div>
+            <div class="annotation-item"><strong>RevOps Growth Component:</strong> Freed hours reallocated to customer success (8hrs), product development (6hrs), revenue growth initiatives (7hrs), process improvement (5.25hrs)</div>
             
             <div class="automation-highlight">
-                🚀 <strong>Labor Cost Reduction:</strong> From $1.7K/month ($20.4K/year for 42 hrs) → $0.8K/month ($9.6K/year for 15.75 hrs manual + oversight)
+                🚀 <strong>RevOps Revenue Potential:</strong> 12% conservative growth rate applied to $698K baseline = $83.8K additional annual revenue
             </div>
             
-            <div class="annotation-item"><strong>Profit Margin Improvement:</strong> 20% (baseline) → 29.7% (after automation) = +980 basis points. Net profit increases by $68.3K annually despite flat revenue</div>
+            <div class="annotation-item"><strong>Combined Profit Impact:</strong> Labor savings ($68.3K) + Revenue-driven profit ($73K) = $141.2K total improvement</div>
             
-            <div class="annotation-item"><strong>Time Reallocation:</strong> 1,365 freed hours/year available for: customer acquisition, product development, strategic analysis, revenue growth initiatives</div>
+            <div class="annotation-item"><strong>Margin Expansion:</strong> From 20% baseline to 35.9% with automation + RevOps, a 1,590 basis point improvement</div>
             
-            <div class="annotation-item"><strong>Payback & ROI:</strong> One-time Review Engine investment recovers in 2-4 months from labor savings alone, then delivers pure profit lift</div>
+            <div class="annotation-item"><strong>Payback & ROI:</strong> One-time automation investment breaks even in 2-3 months from labor savings alone; RevOps revenue growth is pure upside</div>
             
-            <div class="annotation-item"><strong>Bottom Line:</strong> Automation transforms operations from revenue-dependent cost center ($558.4K costs on $698K revenue) to margin-accretive efficiency engine, freeing capital and capacity for growth</div>
+            <div class="annotation-item"><strong>Strategic Implication:</strong> Organization moves from labor-constrained cost center to margin-accretive efficiency engine capable of 5x+ growth without proportional team expansion</div>
         </div>
 
         <div class="footer">
-            Generated: December 25, 2025 | Review Engine Workshop v2 | Revenue Impact Analysis with Task Automation
+            Generated: December 25, 2025 | Review Engine Workshop v2 | Revenue Impact with RevOps Growth Analysis
         </div>
     </div>
 
     <script>
-        const ctx = document.getElementById('automationImpactChart').getContext('2d');
+        const ctx = document.getElementById('impactChart').getContext('2d');
         
         const data = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             datasets: [
                 {
-                    label: 'Revenue (Unchanged)',
+                    label: 'Revenue Baseline',
                     data: [560, 571, 582, 594, 606, 618, 631, 644, 657, 670, 684, 698],
                     borderColor: '#2d3748',
                     backgroundColor: 'rgba(45, 55, 72, 0.05)',
-                    borderWidth: 3,
+                    borderWidth: 2,
                     fill: false,
                     tension: 0.4,
-                    pointRadius: 5,
+                    pointRadius: 4,
                     pointBackgroundColor: '#2d3748',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 6,
+                    yAxisID: 'y',
+                    order: 1,
+                },
+                {
+                    label: 'Revenue with RevOps Growth',
+                    data: [627.2, 640.2, 653.5, 666.5, 679.7, 693.2, 706.8, 720.4, 734.3, 748.5, 762.9, 781.8],
+                    borderColor: '#9f7aea',
+                    backgroundColor: 'rgba(159, 122, 234, 0.08)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#9f7aea',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
                     pointHoverRadius: 7,
@@ -463,27 +498,42 @@
                     order: 0,
                 },
                 {
-                    label: 'Net Profit Before Automation',
+                    label: 'Net Profit Before',
                     data: [112, 114.2, 116.4, 118.8, 121.2, 123.6, 126.2, 128.8, 131.4, 134.0, 136.8, 139.6],
                     borderColor: '#ed8936',
                     backgroundColor: 'rgba(237, 137, 54, 0.05)',
-                    borderWidth: 3,
-                    borderDash: [5, 5],
+                    borderWidth: 2,
                     fill: false,
                     tension: 0.4,
-                    pointRadius: 4,
+                    pointRadius: 3,
                     pointBackgroundColor: '#ed8936',
                     pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointHoverRadius: 6,
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
                     yAxisID: 'y',
-                    order: 1,
+                    order: 2,
                 },
                 {
-                    label: 'Net Profit After Automation',
+                    label: 'Net Profit Automation Only',
                     data: [173.7, 179.8, 185.9, 191.9, 198.0, 204.2, 210.3, 216.3, 222.4, 228.5, 235.0, 241.4],
+                    borderColor: '#3182ce',
+                    backgroundColor: 'rgba(49, 130, 206, 0.05)',
+                    borderWidth: 2,
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 3,
+                    pointBackgroundColor: '#3182ce',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 1,
+                    pointHoverRadius: 5,
+                    yAxisID: 'y',
+                    order: 3,
+                },
+                {
+                    label: 'Net Profit Automation + RevOps',
+                    data: [219.5, 226.9, 234.3, 241.8, 249.3, 257.0, 264.7, 272.4, 280.3, 287.8, 295.1, 280.8],
                     borderColor: '#38a169',
-                    backgroundColor: 'rgba(56, 161, 105, 0.1)',
+                    backgroundColor: 'rgba(56, 161, 105, 0.12)',
                     borderWidth: 3,
                     fill: true,
                     tension: 0.4,
@@ -493,54 +543,22 @@
                     pointBorderWidth: 2,
                     pointHoverRadius: 7,
                     yAxisID: 'y',
-                    order: 2,
-                },
-                {
-                    label: 'Before Labor Cost',
-                    data: [1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7, 1.7],
-                    borderColor: '#ed8936',
-                    backgroundColor: 'rgba(237, 137, 54, 0.05)',
-                    borderWidth: 2,
-                    borderDash: [5, 5],
-                    fill: false,
-                    tension: 0.3,
-                    pointRadius: 3,
-                    pointBackgroundColor: '#ed8936',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    yAxisID: 'y1',
-                    order: 3,
-                },
-                {
-                    label: 'After Labor Cost',
-                    data: [0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8, 0.8],
-                    borderColor: '#3182ce',
-                    backgroundColor: 'rgba(49, 130, 206, 0.05)',
-                    borderWidth: 2,
-                    fill: false,
-                    tension: 0.3,
-                    pointRadius: 3,
-                    pointBackgroundColor: '#3182ce',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 1,
-                    pointHoverRadius: 5,
-                    yAxisID: 'y1',
                     order: 4,
                 },
                 {
-                    label: 'Cumulative Labor Savings',
-                    data: [0.9, 1.8, 2.7, 3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9.0, 9.9, 10.8],
-                    borderColor: '#9f7aea',
-                    backgroundColor: 'rgba(159, 122, 234, 0.1)',
+                    label: 'Labor Cost Before / After',
+                    data: [9.1, 8.2, 7.3, 6.4, 5.5, 4.6, 3.7, 2.8, 1.9, 1.0, 0.5, 0.4],
+                    borderColor: '#ed8936',
+                    backgroundColor: 'rgba(237, 137, 54, 0.1)',
                     borderWidth: 2,
+                    borderDash: [5, 5],
                     fill: true,
-                    tension: 0.4,
-                    pointRadius: 3,
-                    pointBackgroundColor: '#9f7aea',
+                    tension: 0.3,
+                    pointRadius: 2,
+                    pointBackgroundColor: '#ed8936',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 1,
-                    pointHoverRadius: 5,
+                    pointHoverRadius: 4,
                     yAxisID: 'y1',
                     order: 5,
                 },
@@ -638,7 +656,7 @@
                             color: '#2d3748',
                         },
                         min: 0,
-                        max: 750,
+                        max: 850,
                         ticks: {
                             callback: function(value) {
                                 return '$' + value.toLocaleString('en-US') + 'K';
@@ -660,7 +678,7 @@
                         position: 'right',
                         title: {
                             display: true,
-                            text: 'Labor Costs & Savings ($K)',
+                            text: 'Labor Cost Savings ($K/month)',
                             font: {
                                 size: 12,
                                 weight: 'bold',
@@ -668,7 +686,7 @@
                             color: '#2d3748',
                         },
                         min: 0,
-                        max: 4,
+                        max: 12,
                         ticks: {
                             callback: function(value) {
                                 return '$' + value.toFixed(1) + 'K';

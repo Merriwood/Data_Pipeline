@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Impact Analysis: Automation Scenarios</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 1400px;
+            width: 100%;
+        }
+        
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .scenario-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .scenario-box {
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #667eea;
+        }
+        
+        .scenario-box.automation-only {
+            border-left-color: #3182ce;
+        }
+        
+        .scenario-box.revops {
+            border-left-color: #38a169;
+        }
+        
+        .scenario-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .scenario-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+        
+        .scenario-metric:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .scenario-metric-label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+        
+        .scenario-metric-value {
+            color: #2d3748;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        
+        .profit-highlight {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(56, 161, 105, 0.1);
+            border-radius: 6px;
+            border-left: 3px solid #38a169;
+        }
+        
+        .profit-label {
+            font-size: 12px;
+            color: #4a5568;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .profit-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #38a169;
+        }
+        
+        .improvement-vs {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
+        }
+        
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+        
+        .key-insight {
+            background: #edf2f7;
+            border-left: 4px solid #3182ce;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+        }
+        
+        .insight-title {
+            font-weight: 700;
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }
+        
+        .insight-content {
+            color: #2d3748;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .annotations {
+            background: #f7fafc;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 40px;
+        }
+        
+        .annotations h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        
+        .annotation-item {
+            padding: 12px;
+            margin-bottom: 12px;
+            background: white;
+            border-left: 3px solid #667eea;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+        
+        .automation-highlight {
+            padding: 15px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .critical-note {
+            padding: 15px;
+            margin: 20px 0;
+            background: #fff5e6;
+            border-left: 4px solid #ed8936;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #744210;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th {
+            background: #edf2f7;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            color: #2d3748;
+            border-bottom: 2px solid #cbd5e0;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        
+        tr:hover {
+            background: #f7fafc;
+        }
+        
+        .metric-cell-label {
+            font-weight: 600;
+        }
+        
+        .metric-cell-value {
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #a0aec0;
+            font-size: 12px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 20px;
+            }
+            
+            .scenario-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Financial Impact Analysis: Three Automation Scenarios</h1>
+            <p class="subtitle">Comparing internal reallocation (same team, reallocated hours) vs. headcount reduction scenarios</p>
+        </div>
+
+        <div class="scenario-comparison">
+            <div class="scenario-box">
+                <div class="scenario-title">❌ Baseline (No Automation)</div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Annual Revenue</span>
+                    <span class="scenario-metric-value">$698.0K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Labor Cost (2.02 FTE)</span>
+                    <span class="scenario-metric-value">$109.2K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Operating Costs</span>
+                    <span class="scenario-metric-value">$449.2K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Total Costs</span>
+                    <span class="scenario-metric-value">$558.4K</span>
+                </div>
+                <div class="profit-highlight">
+                    <div class="profit-label">Net Profit</div>
+                    <div class="profit-value">$139.6K</div>
+                    <div class="improvement-vs">20.0% margin | Baseline</div>
+                </div>
+            </div>
+
+            <div class="scenario-box automation-only">
+                <div class="scenario-title">⚙️ Automation Only (Headcount Reduction)</div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Annual Revenue</span>
+                    <span class="scenario-metric-value">$698.0K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Labor Cost (0.76 FTE)</span>
+                    <span class="scenario-metric-value">$40.95K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Operating Costs</span>
+                    <span class="scenario-metric-value">$449.2K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Total Costs</span>
+                    <span class="scenario-metric-value">$490.1K</span>
+                </div>
+                <div class="profit-highlight">
+                    <div class="profit-label">Net Profit</div>
+                    <div class="profit-value">$207.9K</div>
+                    <div class="improvement-vs">+$68.3K vs baseline (+49%)</div>
+                </div>
+            </div>
+
+            <div class="scenario-box revops">
+                <div class="scenario-title">✅ Automation + RevOps (Internal Reallocation)</div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Annual Revenue</span>
+                    <span class="scenario-metric-value">$781.8K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Labor Cost (2.02 FTE)</span>
+                    <span class="scenario-metric-value">$109.2K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Operating Costs</span>
+                    <span class="scenario-metric-value">$461.8K</span>
+                </div>
+                <div class="scenario-metric">
+                    <span class="scenario-metric-label">Total Costs</span>
+                    <span class="scenario-metric-value">$571.0K</span>
+                </div>
+                <div class="profit-highlight">
+                    <div class="profit-label">Net Profit</div>
+                    <div class="profit-value">$210.8K</div>
+                    <div class="improvement-vs">+$71.2K vs baseline (+51%)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="critical-note">
+            <strong>⚠️ Key Clarification on Internal Reallocation Scenario:</strong><br>
+            The "Automation + RevOps (Internal Reallocation)" scenario maintains the same 2.02 FTE team but reallocates their work: 15.75 hrs/week on essential manual operations + 26.25 hrs/week on RevOps growth initiatives (customer success, product development, revenue growth, process improvement). Labor cost remains $109.2K because the team is still employed, just doing different work. The $83.8K additional revenue comes from strategic activities enabled by freed capacity.
+        </div>
+
+        <div class="comparison-title">📈 Complete Financial Comparison Table</div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Baseline</th>
+                    <th>Automation Only</th>
+                    <th>Automation + RevOps</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="metric-cell-label">Revenue</td>
+                    <td class="metric-cell-value">$698.0K</td>
+                    <td class="metric-cell-value">$698.0K</td>
+                    <td class="metric-cell-value">$781.8K</td>
+                </tr>
+                <tr>
+                    <td class="metric-cell-label">FTE / Labor</td>
+                    <td class="metric-cell-value">2.02 / $109.2K</td>
+                    <td class="metric-cell-value">0.76 / $40.95K</td>
+                    <td class="metric-cell-value">2.02 / $109.2K</td>
+                </tr>
+                <tr>
+                    <td class="metric-cell-label">Operating Costs</td>
+                    <td class="metric-cell-value">$449.2K</td>
+                    <td class="metric-cell-value">$449.2K</td>
+                    <td class="metric-cell-value">$461.8K</td>
+                </tr>
+                <tr>
+                    <td class="metric-cell-label">Total Costs</td>
+                    <td class="metric-cell-value">$558.4K</td>
+                    <td class="metric-cell-value">$490.1K</td>
+                    <td class="metric-cell-value">$571.0K</td>
+                </tr>
+                <tr>
+                    <td class="metric-cell-label">Net Profit</td>
+                    <td class="metric-cell-value">$139.6K</td>
+                    <td class="metric-cell-value">$207.9K</td>
+                    <td class="metric-cell-value">$210.8K</td>
+                </tr>
+                <tr>
+                    <td class="metric-cell-label">Margin</td>
+                    <td class="metric-cell-value">20.0%</td>
+                    <td class="metric-cell-value">29.7%</td>
+                    <td class="metric-cell-value">27.0%</td>
+                </tr>
+                <tr>
+                    <td class="metric-cell-label">vs. Baseline</td>
+                    <td class="metric-cell-value">—</td>
+                    <td class="metric-cell-value">+$68.3K (+49%)</td>
+                    <td class="metric-cell-value">+$71.2K (+51%)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="key-insight">
+            <div class="insight-title">💡 Why These Numbers Differ</div>
+            <div class="insight-content">
+                <strong>Automation Only scenario:</strong> Focuses purely on cost reduction. 26.25 freed hours mean you need only 0.76 FTE for operations, so labor drops from $109.2K to $40.95K, saving $68.3K annually. This is achievable through headcount reduction or redeployment.<br><br>
+                
+                <strong>Automation + RevOps (Internal Reallocation) scenario:</strong> Keeps the same 2.02 FTE team on payroll but reallocates their hours from manual operations to strategic growth work. Labor cost stays $109.2K (you're paying the team the same), but now they're working on activities that generate $83.8K in additional revenue. Operating costs increase slightly ($12.6K) to support higher revenue delivery. The net profit improvement is lower ($71.2K vs $68.3K) because you're not reducing labor costs—you're converting a cost into revenue generation capacity.
+            </div>
+        </div>
+
+        <div class="automation-highlight">
+            🎯 <strong>Strategic Insight:</strong> The "Automation + RevOps" scenario generates $71.2K additional profit with NO headcount reductions. The freed capacity directly funds strategic growth initiatives that drive $83.8K additional revenue. This is lower than the cost-reduction-only scenario ($68.3K) because labor remains on payroll, but it positions the company for sustainable revenue growth rather than pure efficiency.
+        </div>
+
+        <div class="annotations">
+            <h3>🔍 Detailed Financial Breakdown</h3>
+            
+            <div class="annotation-item">
+                <strong>Baseline (Current State):</strong> 42 hours/week of operations across 4 categories (Digital Marketing 9.25hrs, Social Media 11.25hrs, Loyalty Rewards 7.25hrs, Ecommerce 14.25hrs). Full 2.02 FTE team on payroll at $109.2K/year.
+            </div>
+            
+            <div class="annotation-item">
+                <strong>Automation Potential:</strong> 26.25 hours/week (62.5%) of tasks can be automated. Remaining 15.75 hours/week (37.5%) requires manual review/judgment. Automation reduces labor requirement from 2.02 FTE to 0.76 FTE.
+            </div>
+            
+            <div class="annotation-item">
+                <strong>Automation Only Scenario:</strong> If headcount reduced to 0.76 FTE, labor cost drops $68.3K annually. Revenue remains flat at $698K (no growth). Profit improves from $139.6K to $207.9K (+$68.3K, +49% improvement).
+            </div>
+            
+            <div class="annotation-item">
+                <strong>RevOps Reallocation (Internal):</strong> Keep 2.02 FTE on payroll. Reallocate freed hours (26.25/week) to: Customer Success & Retention (8 hrs), Product Development (6 hrs), Revenue Growth Initiatives (7 hrs), Process Improvement (5.25 hrs). Labor cost unchanged at $109.2K.
+            </div>
+            
+            <div class="automation-highlight">
+                💰 <strong>Revenue Growth Model:</strong> 12% conservative annual growth rate applied to $698K baseline = $83.8K additional revenue. Assumes 7 hours/week dedicated to revenue growth initiatives (partnerships, pricing optimization, market expansion, upsell programs) generates this level of growth.
+            </div>
+            
+            <div class="annotation-item">
+                <strong>Operating Costs in RevOps Scenario:</strong> Base operating costs ($449.2K) remain stable. Incremental revenue of $83.8K requires ~15% additional operating costs for delivery/support = $12.6K additional. Total OpEx: $461.8K.
+            </div>
+            
+            <div class="annotation-item">
+                <strong>Net Profit for RevOps Scenario:</strong> $781.8K (revenue) - $109.2K (labor) - $461.8K (operating) = $210.8K. This is +$71.2K (+51%) better than baseline, but only +$3K better than automation-only scenario because labor wasn't reduced.
+            </div>
+            
+            <div class="annotation-item">
+                <strong>Key Difference:</strong> Automation-only saves money immediately (+$68.3K). RevOps-reallocation saves money from avoided headcount while generating revenue growth, resulting in similar profit but with growth trajectory and strategic positioning for future scale.
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Financial Impact Analysis | Three-Scenario Comparison | Automation + RevOps Growth Strategy</p>
+            <p>Last Updated: December 25, 2024</p>
+        </div>
+    </div>
+</body>
+</html>
