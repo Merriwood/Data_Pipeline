@@ -230,6 +230,47 @@ This platform is built on **LangGraph state machines** where each business capab
 | **Marketing** | Trigger Klaviyo campaigns | `customer_id`, `campaign_id` | `campaign_sent` | Klaviyo client |
 | **Notification** | Multi-channel alerts (email, SMS, push) | `notification_request` | `delivery_status` | Twilio, Expo |
 
+### Tool Integration Philosophy (Weeks 11-14)
+
+**Principle: Tool-Rich Agents > Agent Proliferation**
+
+Instead of creating separate agents for each PDF imperative task (payment, shipping, refund, churn, fraud, etc.), we **extend existing agents with SaaS integration tools**:
+
+```python
+# ✅ CORRECT: Tool composition pattern
+class EcommerceOpsAgent:
+    """Single agent with multiple tool capabilities."""
+    tools = [
+        # Core tools
+        Tool(name="search_products", func=shopify_api.search),
+        Tool(name="manage_cart", func=shopify_api.cart_update),
+
+        # Week 11: Payment & shipping tools (NEW)
+        Tool(name="process_payment", func=stripe_api.create_payment_intent),
+        Tool(name="get_shipping_eta", func=shippo_api.get_tracking),
+        Tool(name="calculate_dynamic_price", func=pricing_rules_engine),
+
+        # Week 12: Refund tool (NEW)
+        Tool(name="initiate_refund", func=shopify_api.create_refund)
+    ]
+
+    # LangGraph routing decides which tool to invoke
+    graph.add_conditional_edges("classify_intent", route_to_tool, {...})
+```
+
+**Benefits:**
+- ✅ Agent count stays at 11-12 (no bloat)
+- ✅ Tools are 95% SaaS API wrappers (minimal custom code)
+- ✅ ~300 lines of integration code vs. 2000+ for custom builds
+- ✅ 6.5 days to implement vs. 8+ weeks
+- ✅ Zero maintenance burden (SaaS providers handle updates)
+
+**Tool Development Approach:**
+1. **Week 11:** E-commerce tools (payment, shipping, pricing) - ~20 hours
+2. **Week 12:** Loyalty tools (churn, referrals, refunds) - ~18 hours
+3. **Week 13:** Analytics tools (segmentation, fraud, A/B testing) - ~12 hours
+4. **Total:** 50 hours = 6.5 days (fits within existing timeline)
+
 ### Data Flow Example: High-Rated Review → Loyalty Reward
 
 ```yaml
@@ -492,12 +533,15 @@ class ReviewState(TypedDict):
 
 ### External Integrations
 
-| Category | Provider | Purpose |
-|----------|----------|---------|
-| **Loyalty** | Yotpo Loyalty & Referrals | Point awards, referrals |
-| **Marketing** | Klaviyo | Email campaigns, flows |
-| **Review Aggregation** | Synup, Google My Business, Yelp | Multi-platform review sync |
-| **E-Commerce** | Shopify, WooCommerce | Product catalog, orders, inventory |
+| Category | Provider | Purpose | Integration Type |
+|----------|----------|---------|------------------|
+| **Loyalty** | Yotpo Loyalty & Referrals | Point awards, tier management, referral tracking | API wrapper tools |
+| **Marketing** | Klaviyo | Email campaigns, customer segmentation, churn prediction | API wrapper tools |
+| **Review Aggregation** | Synup, Google My Business, Yelp | Multi-platform review sync | Webhook + API |
+| **E-Commerce** | Shopify, WooCommerce | Product catalog, orders, inventory, fulfillment, refunds | API wrapper tools |
+| **Payments** | Stripe | Payment processing, refunds | API wrapper tool (Week 11) |
+| **Shipping** | Shippo | Shipping rates, tracking, ETA | API wrapper tool (Week 11) |
+| **Experimentation** | LaunchDarkly OR Statsig | A/B testing, feature flags | API wrapper tool (Week 13) |
 
 ### What We Eliminated (Bloat Removal)
 
@@ -915,14 +959,14 @@ Parallel Development: Reviews, Ecommerce, Frontend can proceed simultaneously
 | **9** | **Security** | Supabase Auth + RLS + RBAC | ✅ Multi-tenant isolation verified<br>✅ Permission tests passing<br>✅ JWT auth working |
 | **10** | **Testing & Docs** | Integration tests, load testing, docs | ✅ 90%+ test coverage<br>✅ Load tests passed (100 req/s)<br>✅ ARCHITECTURE.md complete |
 
-### Phase 3: E-Commerce Plugin (Weeks 11-14)
+### Phase 3: E-Commerce & Loyalty Plugin (Weeks 11-14)
 
 | Week | Module | Deliverables | Exit Criteria |
 |------|--------|--------------|---------------|
-| **11** | **Ecom Agents** | Product sync + Inventory + Order agents | ✅ Shopify products syncing<br>✅ Inventory tracking working<br>✅ Order processing functional |
-| **12** | **Ecom Workflows** | Purchase tracker + LTV calculator + Events | ✅ Purchase events triggering loyalty<br>✅ LTV calculation accurate<br>✅ Cross-module workflows working |
-| **13** | **Ecom UI** | E-commerce module dashboard | ✅ Product analytics in Qrvey<br>✅ Inventory alerts working<br>✅ Purchase history visible |
-| **14** | **Integration Testing** | End-to-end module testing | ✅ All modules tested together<br>✅ No regressions<br>✅ Security audit passed |
+| **11** | **Ecom Agents + Payment/Shipping Tools** | Product sync + Inventory + Order agents<br>**NEW:** Payment gateway tool (Stripe integration)<br>**NEW:** Shipping provider tool (Shopify + Shippo)<br>**NEW:** Dynamic pricing tool (Shopify Price Rules) | ✅ Shopify products syncing<br>✅ Inventory tracking working<br>✅ Order processing functional<br>✅ **Stripe payments processing**<br>✅ **Shippo ETA tracking**<br>✅ **Dynamic pricing rules active** |
+| **12** | **Ecom Workflows + Intelligence Tools** | Purchase tracker + LTV calculator + Events<br>**NEW:** Refund processor tool (Shopify Refunds API)<br>**NEW:** Churn risk scorer tool (rule-based MVP)<br>**NEW:** Referral tracker tool (Yotpo Referrals API) | ✅ Purchase events triggering loyalty<br>✅ LTV calculation accurate<br>✅ **Refund workflow functional**<br>✅ **Churn risk scores generated**<br>✅ **Referral tracking via Yotpo** |
+| **13** | **Ecom UI + Analytics Tools** | E-commerce module dashboard<br>**NEW:** Segment classifier tool (Klaviyo Segments API)<br>**NEW:** Fraud detector tool (pattern matching MVP)<br>**NEW:** A/B test tracker tool (LaunchDarkly/Statsig) | ✅ Product analytics in Qrvey<br>✅ Inventory alerts working<br>✅ **Churn/fraud alerts visible**<br>✅ **Customer segments displayed**<br>✅ **A/B test experiments tracked** |
+| **14** | **Integration Testing** | End-to-end module testing<br>**NEW:** Tool integration validation | ✅ All modules tested together<br>✅ **All 9 tools integrated & tested**<br>✅ No regressions<br>✅ Security audit passed |
 
 ### Phase 4: Mobile & Production (Weeks 15-18)
 
@@ -976,12 +1020,32 @@ Review-Engine-Workshop-v2/
 │   │   ├── order_processing_agent/
 │   │   ├── purchase_tracker_agent/
 │   │   ├── ltv_calculator_agent/
+│   │   ├── tools/                 # SaaS integration tools (NEW)
+│   │   │   ├── payment_gateway.py      # Stripe API wrapper
+│   │   │   ├── shipping_provider.py    # Shopify + Shippo wrapper
+│   │   │   ├── refund_processor.py     # Shopify Refunds API
+│   │   │   └── dynamic_pricing.py      # Pricing rules engine
 │   │   └── integrations/
 │   │       ├── shopify_client.py
+│   │       ├── stripe_client.py        # NEW
+│   │       ├── shippo_client.py        # NEW
 │   │       └── woocommerce_client.py
 │   │
+│   ├── automation/                # Action triggers (ENHANCED Week 12+)
+│   │   ├── eligibility_agent/
+│   │   ├── loyalty_agent/
+│   │   │   └── tools/             # Loyalty intelligence tools (NEW)
+│   │   │       ├── churn_risk_scorer.py    # Rule-based MVP → Klaviyo API
+│   │   │       ├── fraud_detector.py       # Pattern matching MVP
+│   │   │       └── referral_tracker.py     # Yotpo Referrals API wrapper
+│   │   ├── marketing_agent/
+│   │   │   └── tools/             # Marketing tools (NEW)
+│   │   │       ├── segment_classifier.py   # Klaviyo Segments API
+│   │   │       └── ab_test_tracker.py      # LaunchDarkly/Statsig wrapper
+│   │   └── notification_agent/
+│   │
 │   └── shared/                    # Reusable components
-│       ├── tools/                 # LangGraph tool definitions
+│       ├── tools/                 # Core LangGraph tool definitions
 │       ├── prompts/               # Prompt templates
 │       ├── schemas/               # Pydantic state models
 │       └── utils/
